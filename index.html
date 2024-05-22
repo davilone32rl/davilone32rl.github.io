@@ -18,7 +18,6 @@
         <button class="instagram" onclick="accionInstagram()">Instagram</button>
         <button class="twitter" onclick="accionTwitter()">twitter</button>
         <button class="Discord" onclick="accionDiscord()">Discord</button>
-        <p>Esta página ha sido visitada <span id="contador">0</span> veces.</p>
     </div>
 
 
@@ -67,31 +66,6 @@
                         updateContent();
                     });
                 });
-
-            // Función para actualizar el contenido
-            function updateContent() {
-                document.querySelectorAll('[data-i18n]').forEach(function(element) {
-                    let key = element.getAttribute('data-i18n');
-                    element.innerHTML = i18next.t(key);
-                });
-            }
-
-            document.addEventListener("DOMContentLoaded", function() {
-            // Obtener el contador actual del almacenamiento local
-            var contador = localStorage.getItem("contador");
-    
-    // Si el contador no existe, establecerlo en 0
-            if (!contador) {
-                contador = 0;
-            }
-    
-    // Incrementar el contador y mostrarlo en la página
-            contador++;
-            document.getElementById("contador").textContent = contador;
-    
-            // Guardar el contador actualizado en el almacenamiento local
-            localStorage.setItem("contador", contador);
-        });
     </script>
 </body>
 </html>
