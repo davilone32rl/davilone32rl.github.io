@@ -1,71 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheNewRoot</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <div>
-            <h1 class="titulo" data-i18n="greeting">Hola! Me llamo TheNewRoot</h1>
-            <h1 class="titulo" data-i18n="social_media">y estas son mis redes sociales</h1>
-            <h3 class="titulo" data-i18n="languages">se ingles y español</h3>
-        </div>
-        <button class="twitch" onclick="accionTwitch()">Twitch</button>
-        <button class="youtube" onclick="accionYoutube()">YouTube</button>
-        <button class="instagram" onclick="accionInstagram()">Instagram</button>
-        <button class="twitter" onclick="accionTwitter()">twitter</button>
-        <button class="Discord" onclick="accionDiscord()">Discord</button>
-    </div>
-
-
-    <script src="https://unpkg.com/i18next@21.6.4/i18next.min.js"></script>
-    <script src="https://unpkg.com/i18next-http-backend@1.4.3/i18nextHttpBackend.min.js"></script>
-    <script>
-        function accionTwitch() {
-            window.location.href = "https://www.twitch.tv/thenewroot";
-        }
-        function accionYoutube() {
-            window.location.href = "https://www.twitch.tv/thenewroot";
-        }
-        function accionInstagram() {
-            alert("Proximamente");
-        }
-        function accionTwitter() {
-            window.location.href = "https://x.com/TheNewR00t";
-        }
-        function accionDiscord() {
-            window.location.href = "https://discord.gg/eHVCWzHN";
-        }
-
-        i18next.use(i18nextHttpBackend).init({
-                lng: 'es', // Idioma predeterminado
-                fallbackLng: 'en',
-                backend: {
-                    loadPath: 'locales/{{lng}}.json'
-                }
-            }, function(err, t) {
-                // Actualizar el contenido de la página con las traducciones
-                updateContent();
-            });
-
-            // Detectar el país del usuario (esto es solo un ejemplo y no es preciso)
-            fetch('https://ipapi.co/json/')
-                .then(response => response.json())
-                .then(data => {
-                    let countryCode = data.country_code.toLowerCase();
-                    let language = 'en'; // Idioma predeterminado
-
-                    if (countryCode === 'es') {
-                        language = 'es';
-                    }
-                    // Cambiar el idioma
-                    i18next.changeLanguage(language, function() {
-                        updateContent();
-                    });
-                });
-    </script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>davilone32</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <script src="script.js"></script>
+    <b class="ref">Davilone32</b>
+    <button id="kickButton" style="--clr: #39ff14" ><span>Kick</span><i></i></button>
+    <button id="twitchButton" class="button" style="--clr: #ff44cc"><span>Twitch</span><i></i></button>
+    <button id="discordButton" style="--clr: #5865f2"><span>Discord</span><i></i></button>
+    <button id="youtubeButton" style="--clr: #FF0000"><span>Youtube</span><i></i></button>
+  </body>
 </html>
