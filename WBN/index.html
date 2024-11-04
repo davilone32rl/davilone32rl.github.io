@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste de Execução de Código</title>
+    <title>Prueba de Ejecución de Código</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,7 +23,7 @@
     </style>
 </head>
 <body>
-    <h1>Teste de Execução de Código</h1>
+    <h1>Prueba de Ejecución de Código</h1>
     <pre id="log"></pre>
     
     <!-- Botão para executar o payload -->
@@ -55,7 +55,7 @@
             try {
                 eval(input);
             } catch (error) {
-                console.error('Erro ao executar o código: ' + error.message);
+                console.error('Error al ejecutar código: ' + error.message);
             }
         }
 
@@ -66,17 +66,17 @@
 
         // Chamada da função foo com valores arbitrários
         let res = foo(1, 456, 789); 
-        console.log(`Resultado da função foo: ${res}`);
+        console.log(`Resultado de la función: ${res}`);
 
         if (typeof res === 'number' && !isNaN(res)) {
-            document.body.innerHTML += "<h2>Resultado da função foo: " + res + "</h2>";
-            alert("Manipulação de memória testada com sucesso! Valor gravado: " + res);
+            document.body.innerHTML += "<h2>Resultado de la función: " + res + "</h2>";
+            alert("¡Manipulación de memoria probada con éxito! Valor registrado: " + res);
             let userInput = '<h2>Payload executado: DOM manipulado!</h2>';
             unsafeEval(userInput);
             toggleBackgroundColor();
         } else {
-            console.error('Erro inesperado na função foo. Resultado: ' + res);
-            document.body.innerHTML += "<h2>Erro inesperado na função foo.</h2>";
+            console.error('Error inesperado en la función. Resultado: ' + res);
+            document.body.innerHTML += "<h2>Error inesperado en la función.</h2>";
         }
 
         // Função para executar o payload
@@ -84,7 +84,7 @@
             fetch('payload.js')
                 .then(response => response.text())
                 .then(script => unsafeEval(script)) // Executa o payload usando eval
-                .catch(error => console.error('Erro ao carregar o payload: ' + error));
+                .catch(error => console.error('Error al cargar la carga útil: ' + error));
         });
     </script>
 </body>
