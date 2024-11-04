@@ -1,7 +1,7 @@
 (function() {
     const sprayArray = [];
     const largeObjectSize = 0x999999;  
-    const iterations = 250;            
+    const iterations = 240;            
 
     async function fragmentedHeapSpray() {
         for (let i = 0; i < iterations; i++) {
