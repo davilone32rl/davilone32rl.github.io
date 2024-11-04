@@ -1,11 +1,11 @@
 (function() {
-    const buffer = new ArrayBuffer(64);
-    const view = new DataView(buffer);
+    const sprayArray = [];
+    const sprayCount = 100; 
+    const objectTemplate = { data: new Array(256).fill(0) }; // Objeto con un array de 256 elementos
 
-    // Intento de manipulación de memoria en el buffer
-    for (let i = 0; i < view.byteLength; i += 4) {
-        view.setUint32(i, 0x41414141 + i);  // Patrón en hexadecimal
-        console.log(`Escrito en posición ${i}: ${view.getUint32(i).toString(16)}`);
+    for (let i = 0; i < sprayCount; i++) {
+        sprayArray.push({ ...objectTemplate, id: i }); // Clonando el objeto y añadiendo un ID
     }
-    alert("exito");
+
+    console.log("Heap spraying con objetos complejos realizado.");
 })();

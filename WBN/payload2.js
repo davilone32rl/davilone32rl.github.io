@@ -1,11 +1,12 @@
 (function() {
-    const sprayArray = [];
-    const spraySize = 0x80000;  // 512 KB por bloque
-    const sprayCount = 1024;     // Número de bloques para evitar saturación total
+    const buffer = new ArrayBuffer(8); // Buffer pequeño
+    const view = new Uint8Array(buffer);
 
-    for (let i = 0; i < sprayCount; i++) {
-        let sprayStr = "A".repeat(spraySize);
-        sprayArray.push(sprayStr);
+    try {
+        for (let i = 0; i < 16; i++) { // Intentar escribir más allá del límite
+            view[i] = 0xFF;
+        }
+    } catch (error) {
+        console.error("Error de desbordamiento detectado:", error.message);
     }
-    console.log("Heap spraying para PS4 completado.");
 })();

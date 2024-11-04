@@ -1,15 +1,9 @@
 (function() {
-    try {
-        const buffer = new ArrayBuffer(16); // Buffer pequeño
-        const view = new Uint8Array(buffer);
+    const buffer = new ArrayBuffer(64);
+    const view = new DataView(buffer);
 
-        // Escritura fuera del límite intencionada
-        for (let i = 0; i < 32; i++) {  // Más allá del tamaño real
-            view[i] = 0xFF;
-        }
-
-        console.log("Prueba de buffer overflow ejecutada en PS4.");
-    } catch (error) {
-        alert("Error de overflow detectado:", error.message);
+    for (let i = 0; i < view.byteLength; i += 4) {
+        view.setUint32(i, 0x41414141 + i);
+        console.log(`Escrito en posición ${i}: ${view.getUint32(i).toString(16)}`);
     }
 })();
