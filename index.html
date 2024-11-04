@@ -1,91 +1,15 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prueba de Ejecución de Código</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            transition: background-color 0.5s;
-        }
-        pre {
-            background: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Prueba de Ejecución de Código</h1>
-    <pre id="log"></pre>
-    
-    <!-- Botão para executar o payload -->
-    <button id="executePayload">Executar Payload</button>
-
-    <script>
-        function foo(a, b, c) {
-            let x = a | 0;
-            let y = b | 0;
-            let z = c & 15;
-            let result = 0;
-
-            // Log para monitorar os valores
-            console.log(`Valores: x=${x}, y=${y}, z=${z}`);
-
-            // Loop para manipular os valores
-            for (let i = 0; i < 10; i++) {
-                z = (x << y) ^ (x << (y & 0x10ff)) + (i * 10); // Adicionando um fator de multiplicação
-                result += z;
-
-                // Log dos resultados em cada iteração
-                console.log(`Iteración ${i + 1}: z=${z}, result=${result}`);
-            }
-
-            return result;
-        }
-
-        function unsafeEval(input) {
-            try {
-                eval(input);
-            } catch (error) {
-                console.error('Error al ejecutar código: ' + error.message);
-            }
-        }
-
-        function toggleBackgroundColor() {
-            document.body.style.backgroundColor = 
-                document.body.style.backgroundColor === 'lightblue' ? 'lightgreen' : 'lightblue';
-        }
-
-        // Chamada da função foo com valores arbitrários
-        let res = foo(1, 456, 789); 
-        console.log(`Resultado de la función: ${res}`);
-
-        if (typeof res === 'number' && !isNaN(res)) {
-            document.body.innerHTML += "<h2>Resultado de la función: " + res + "</h2>";
-            alert("¡Manipulación de memoria probada con éxito! Valor registrado: " + res);
-            let userInput = '<h2>Carga útil ejecutada: DOM manipulado!</h2>';
-            unsafeEval(userInput);
-            toggleBackgroundColor();
-        } else {
-            console.error('Error inesperado en la función. Resultado: ' + res);
-            document.body.innerHTML += "<h2>Error inesperado en la función.</h2>";
-        }
-
-        // Função para executar o payload
-        document.getElementById("executePayload").addEventListener("click", function() {
-            fetch('payload.js')
-                .then(response => response.text())
-                .then(script => unsafeEval(script)) // Executa o payload usando eval
-                .catch(error => console.error('Error al cargar la carga el payload: ' + error));
-        });
-    </script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>davilone32</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <script src="script.js"></script>
+    <b class="ref">Davilone32</b>
+    <button id="kickButton" style="--clr: #39ff14" ><span>Kick</span><i></i></button>
+    <button id="twitchButton" class="button" style="--clr: #ff44cc"><span>Twitch</span><i></i></button>
+    <button id="discordButton" style="--clr: #5865f2"><span>Discord</span><i></i></button>
+    <button id="youtubeButton" style="--clr: #FF0000"><span>Youtube</span><i></i></button>
+  </body>
 </html>
