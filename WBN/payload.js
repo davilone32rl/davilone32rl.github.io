@@ -1,14 +1,10 @@
 (function() {
-    const sprayArray = [];
-    const spraySize = 0x100000; // Tamaño de cada spray
-    const sprayCount = 100;     // Número de objetos para llenar la memoria
+    const buffer = new ArrayBuffer(64);
+    const view = new DataView(buffer);
 
-    // Crear múltiples cadenas largas y colocarlas en el heap
-    for (let i = 0; i < sprayCount; i++) {
-        let sprayStr = "A".repeat(spraySize);
-        sprayArray.push(sprayStr);
+    // Intento de manipulación de memoria en el buffer
+    for (let i = 0; i < view.byteLength; i += 4) {
+        view.setUint32(i, 0x41414141 + i);  // Patrón en hexadecimal
+        alert(`Escrito en posición ${i}: ${view.getUint32(i).toString(16)}`);
     }
-
-    console.log("Heap spraying completado. Se han colocado objetos grandes en memoria.");
-    alert("exitos");
 })();
