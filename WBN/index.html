@@ -89,7 +89,7 @@
         });
 
         document.getElementById("executePayloadtest2").addEventListener("click", function() {
-            fetch()
+            fetch('payload2.js')
                 .then(response => response.text())
                 .then(script => unsafeEval(script)) // Executa o payload usando eval
                 .catch(error => console.error('Error al cargar la carga útil: ' + error));
