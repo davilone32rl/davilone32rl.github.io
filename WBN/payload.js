@@ -10,4 +10,5 @@
     }
 
     console.log("Heap spraying completado. Se han colocado objetos grandes en memoria.");
+    alert("exitos");
 })();
