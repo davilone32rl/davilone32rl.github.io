@@ -1,25 +1,18 @@
 (function() {
     const sprayArray = [];
-    const sprayCount = 1000; // Aumentar el número de objetos
-    const spraySize = 0x10000; // Tamaño más grande para cada objeto
+    const spraySize = 0x100000; // 1MB por objeto
+    const sprayCount = 200;      // Intentar llenar la memoria rápidamente
 
-    // Clases de objetos variados
-    class ComplexObject {
-        constructor(id) {
-            this.id = id;
-            this.data = new Uint8Array(spraySize).fill(0x41); // Llenar con 'A's
-            this.nestedObject = {
-                nestedData: new Array(128).fill(Math.random()), // Datos aleatorios
-            };
+    console.log("Iniciando heap spraying agresivo...");
+
+    for (let i = 0; i < sprayCount; i++) {
+        let sprayStr = "A".repeat(spraySize); // Crear una cadena de 1MB
+        sprayArray.push(sprayStr);
+        if (i % 10 === 0) {
+            console.log(`Spray ${i + 1} creado, tamaño total en memoria: ${(sprayArray.length * spraySize) / (1024 * 1024)} MB`);
         }
     }
 
-    console.log("[*] Comenzando heap spraying...");
-
-    for (let i = 0; i < sprayCount; i++) {
-        sprayArray.push(new ComplexObject(i)); // Crear objetos complejos
-    }
-
-    console.log("[*] Heap spraying completado.");
-    console.log(`[*] Total de objetos en el heap: ${sprayArray.length}`);
+    console.log("Heap spraying completado. Se han colocado objetos grandes en memoria.");
+    alert("Carga completa, ¡el sistema está bajo presión!");
 })();
