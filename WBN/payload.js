@@ -1,7 +1,7 @@
 (function() {
     const sprayArray = [];
-    const spraySize = 0x100000; // 1MB por objeto
-    const sprayCount = 200;      // Intentar llenar la memoria rápidamente
+    const spraySize = 0xA00000; // 1MB por objeto
+    const sprayCount = 50;      // Intentar llenar la memoria rápidamente
 
     console.log("Iniciando heap spraying agresivo...");
 
