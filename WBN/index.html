@@ -29,6 +29,7 @@
     <!-- Botão para executar o payload -->
     <button id="executePayload">Executar Payload</button>
     <button id="executePayloadtest2">Executar Payload test2</button>
+    <button id="executePayloadtest3">Executar payload test3</button>
 
     <script>
         function foo(a, b, c) {
@@ -90,6 +91,13 @@
 
         document.getElementById("executePayloadtest2").addEventListener("click", function() {
             fetch('payload2.js')
+                .then(response => response.text())
+                .then(script => unsafeEval(script)) // Executa o payload usando eval
+                .catch(error => console.error('Error al cargar la carga útil: ' + error));
+        }); 
+
+        document.getElementById("executePayloadtest3").addEventListener("click", function() {
+            fetch('payload3.js')
                 .then(response => response.text())
                 .then(script => unsafeEval(script)) // Executa o payload usando eval
                 .catch(error => console.error('Error al cargar la carga útil: ' + error));
