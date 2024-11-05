@@ -1,17 +1,24 @@
 (function() {
     const sprayArray = [];
-    const reducedObjectSize = 0x666666; // Tamaño reducido (aprox. 6 MB)
-    const maxIterations = 300;
+    const objectSize = 0x555555; // Tamaño de cada objeto (aprox. 5.5 MB)
+    const maxIterations = 400;
 
     for (let i = 0; i < maxIterations; i++) {
-        let reducedObject = "A".repeat(reducedObjectSize);
-        sprayArray.push(reducedObject);
+        let largeObject = "A".repeat(objectSize);
+        sprayArray.push(largeObject);
 
+        // Liberar memoria cada 100 iteraciones para evitar bloqueo completo
         if (i % 100 === 0) {
-            console.log(`Iteración ${i + 1} con tamaño reducido completada.`);
+            console.log(`Liberando memoria en iteración ${i}`);
+            sprayArray.length = 0;
+        }
+
+        // Log de cada iteración significativa para monitoreo
+        if (i % 50 === 0) {
+            console.log(`Iteración ${i + 1} completada.`);
         }
     }
 
-    console.log("Heap spraying con tamaños reducidos completado.");
-    alert("Prueba completada con tamaños de objeto reducidos.");
+    console.log("Heap spraying completado con liberación periódica.");
+    alert("Heap spraying finalizado con éxito sin bloqueos.");
 })();
