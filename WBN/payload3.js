@@ -1,7 +1,7 @@
 (function() {
-    const bufferSize = 0x100000; // Tamaño de 1 MB para el buffer
+    const bufferSize = 20 * 1024 * 1024;; // Tamaño de 1 MB para el buffer
     let buffer = new ArrayBuffer(bufferSize);
-    let view = new DataView(buffer);
+    let view = new Uint8Array(largeBuffer);
 
     // Rellenar el buffer con valores específicos
     for (let i = 0; i < bufferSize; i += 4) {
