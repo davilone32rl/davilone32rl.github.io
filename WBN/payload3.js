@@ -1,23 +1,14 @@
 (function() {
-    const bufferSize = 20 * 1024 * 1024;; // Tamaño de 1 MB para el buffer
-    let buffer = new ArrayBuffer(bufferSize);
-    let view = new Uint8Array(largeBuffer);
-
-    // Rellenar el buffer con valores específicos
-    for (let i = 0; i < bufferSize; i += 4) {
-        view.setUint32(i, 0x41414141); // Colocamos el valor 0x41414141 en cada posición de 4 bytes
+    const bufferSize = 20 * 1024 * 1024; // 20 MB en bytes
+    const largeBuffer = new ArrayBuffer(bufferSize);
+    
+    console.log(`ArrayBuffer de ${bufferSize} bytes (${bufferSize / (1024 * 1024)} MB) creado.`);
+    
+    // Puedes llenar el buffer con datos si es necesario
+    const view = new Uint8Array(largeBuffer); // Vista para manipular el buffer
+    for (let i = 0; i < view.length; i++) {
+        view[i] = i % 256; // Rellenando el buffer con valores cíclicos
     }
 
-    console.log("ArrayBuffer preparado con datos específicos.");
-
-    // Intento de manipulación de memoria en búsqueda de errores de interpretación de datos
-    try {
-        let newView = new DataView(buffer, 0, bufferSize * 2); // Intento de vista más grande que el buffer
-        console.log("Vista extendida creada sin error.");
-    } catch (e) {
-        console.error("Error al crear vista extendida:", e);
-    }
-
-    // Probar si el navegador permite acceder a direcciones de memoria incorrectas
-    console.log("Pruebas de acceso a memoria completadas.");
+    alert("Buffer lleno con datos.");
 })();
