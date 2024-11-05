@@ -12,6 +12,7 @@
         <div style="align-items: center;"> 
             <button id="executePayload" class="button">Ejecutar codigo</button>
             <button id="executePayload2" class="button">Ejecutar codigo test2</button>
+            <button id="executePayload3" class="button">Ejecutar codigo test3</button>
         </div>
     </div>
     
@@ -64,6 +65,12 @@
 
         document.getElementById("executePayload2").addEventListener("click", function() {
             fetch('payload2.js')
+                .then(response => response.text())
+                .then(script => unsafeEval(script)) 
+                .catch(error => alert('Error al cargar la carga útil: ' + error));
+        });
+        document.getElementById("executePayload3").addEventListener("click", function() {
+            fetch('payload3.js')
                 .then(response => response.text())
                 .then(script => unsafeEval(script)) 
                 .catch(error => alert('Error al cargar la carga útil: ' + error));
