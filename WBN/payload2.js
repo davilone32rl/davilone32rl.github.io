@@ -1,24 +1,29 @@
 (function() {
     const sprayArray = [];
-    const objectSize = 0x555555; // Tamaño de cada objeto (aprox. 5.5 MB)
-    const maxIterations = 400;
+    const objectSizeSmall = 0x444444; // Tamaño de objetos pequeños (~4 MB)
+    const objectSizeLarge = 0x888888; // Tamaño de objetos grandes (~9 MB)
+    const maxIterations = 200;
+    const fragmentationPattern = [objectSizeSmall, objectSizeLarge];
 
+    // Fragmentación controlada en bloques de diferente tamaño
     for (let i = 0; i < maxIterations; i++) {
-        let largeObject = "A".repeat(objectSize);
-        sprayArray.push(largeObject);
+        // Alternar tamaños entre iteraciones para crear fragmentación
+        let currentSize = fragmentationPattern[i % fragmentationPattern.length];
+        let sprayObject = "A".repeat(currentSize);
+        sprayArray.push(sprayObject);
 
-        // Liberar memoria cada 100 iteraciones para evitar bloqueo completo
-        if (i % 100 === 0) {
+        // Liberar memoria periódicamente para no llegar al límite
+        if (i % 50 === 0 && i !== 0) {
             console.log(`Liberando memoria en iteración ${i}`);
-            sprayArray.length = 0;
+            sprayArray.splice(0, 25); // Liberar una parte de los objetos en lugar de todos
         }
 
-        // Log de cada iteración significativa para monitoreo
-        if (i % 50 === 0) {
-            console.log(`Iteración ${i + 1} completada.`);
+        // Log para monitorear el progreso
+        if (i % 20 === 0) {
+            console.log(`Iteración ${i + 1} completada. Tamaño actual: ${currentSize.toString(16)}`);
         }
     }
 
-    console.log("Heap spraying completado con liberación periódica.");
-    alert("Heap spraying finalizado con éxito sin bloqueos.");
+    console.log("Heap spraying con fragmentación controlada completado.");
+    alert("Heap spraying con fragmentación finalizado.");
 })();
