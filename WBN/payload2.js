@@ -1,7 +1,7 @@
 (function() {
     const sprayArray = [];
     const reducedObjectSize = 0x666666; // Tamaño reducido (aprox. 6 MB)
-    const maxIterations = 400;
+    const maxIterations = 300;
 
     for (let i = 0; i < maxIterations; i++) {
         let reducedObject = "A".repeat(reducedObjectSize);
