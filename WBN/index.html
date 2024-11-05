@@ -4,30 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prueba de Ejecución de Código</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            transition: background-color 0.5s;
-        }
-        pre {
-            background: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <h1>Prueba de Ejecución de Código</h1>
-
+    <div style="text-align: center;">
+        <h1 style="text-align: center;" class="text">Prueba de Ejecución de Código</h1>
+        <div style="align-items: center;"> 
+            <button id="executePayload" class="button">Ejecutar codigo</button>
+            <button id="executePayload2" class="button">Ejecutar codigo test2</button>
+        </div>
+    </div>
     
-    <!-- Botão para executar o payload -->
-    <button id="executePayload">Ejecutar codigo</button>
 
     <script>
         function foo(a, b, c) {
@@ -36,15 +23,12 @@
             let z = c & 15;
             let result = 0;
 
-            // Log para monitorar os valores
             console.log(`Valores: x=${x}, y=${y}, z=${z}`);
 
-            // Loop para manipular os valores
+ 
             for (let i = 0; i < 10; i++) {
-                z = (x << y) ^ (x << (y & 0x10ff)) + (i * 10); // Adicionando um fator de multiplicação
+                z = (x << y) ^ (x << (y & 0x10ff)) + (i * 10); 
                 result += z;
-
-                // Log dos resultados em cada iteração
                 console.log(`Iteração ${i + 1}: z=${z}, result=${result}`);
             }
 
@@ -59,31 +43,29 @@
             }
         }
 
-        function toggleBackgroundColor() {
-            document.body.style.backgroundColor = 
-                document.body.style.backgroundColor === 'lightblue' ? 'lightgreen' : 'lightblue';
-        }
-
-        // Chamada da função foo com valores arbitrários
         let res = foo(1, 456, 789); 
         console.log(`Resultado de la función: ${res}`);
 
         if (typeof res === 'number' && !isNaN(res)) {
-            document.body.innerHTML += "<h2>Resultado de la función: " + res + "</h2>";
             alert("¡Manipulación de memoria probada con éxito! Valor registrado: " + res);
             let userInput = '<h2>Payload executado: DOM manipulado!</h2>';
             unsafeEval(userInput);
-            toggleBackgroundColor();
         } else {
             console.error('Error inesperado en la función. Resultado: ' + res);
             document.body.innerHTML += "<h2>Error inesperado en la función.</h2>";
         }
 
-        // Função para executar o payload
         document.getElementById("executePayload").addEventListener("click", function() {
             fetch('payload.js')
                 .then(response => response.text())
-                .then(script => unsafeEval(script)) // Executa o payload usando eval
+                .then(script => unsafeEval(script)) 
+                .catch(error => alert('Error al cargar la carga útil: ' + error));
+        });
+
+        document.getElementById("executePayload2").addEventListener("click", function() {
+            fetch('payload2.js')
+                .then(response => response.text())
+                .then(script => unsafeEval(script)) 
                 .catch(error => alert('Error al cargar la carga útil: ' + error));
         });
     </script>
